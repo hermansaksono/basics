@@ -10,24 +10,28 @@ def merge_sort(list_of_numbers):
         accumulator = []
         return __merge(merge_sort(left_half),
                        merge_sort(right_half),
-                       accumulator)
+                       accumulator,
+                       lambda x, y: x < y)
 
 
-def __merge(left, right, accumulator):
+def __merge(left, right, accumulator, comparator):
     """Merge left, right, and accumulator lists in an ordered way"""
-    # type: (List[int], List[int], List[int]) -> List[int]
+    # type: (list[int], list[int], list[int], function(int, int) -> bool) -> list[int]
     if len(left) == 0 and len(right) == 0:
         return accumulator
     elif len(left) == 0:
         return accumulator + right
     elif len(right) == 0:
         return accumulator + left
-    elif left[0] < right[0]:
+    elif comparator(left[0], right[0]):
         return __merge(left[1:], right,
-                       accumulator + [left[0]])
-    elif right[0] < left[0]:
+                       accumulator + [left[0]],
+                       comparator)
+    elif comparator(right[0], left[0]):
         return __merge(left, right[1:],
-                       accumulator + [right[0]])
+                       accumulator + [right[0]],
+                       comparator)
     else:
         return __merge(left[1:], right,
-                       accumulator + [left[0]])
+                       accumulator + [left[0]],
+                       comparator)
