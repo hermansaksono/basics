@@ -24,7 +24,7 @@ samples_to_be_picked = random_picks[0:num_samples]
 apples_sampled = 0
 bananas_sampled = 0
 
-for i in random_picks[0:samples_to_be_picked]:
+for i in samples_to_be_picked:
     if apples_plus_bananas[i] == 0:
         apples_sampled += 1
     if apples_plus_bananas[i] == 1:
